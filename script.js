@@ -31,6 +31,7 @@ function Add() {
                     OccPlayers.push(AvCard);
                     AvPlayers.splice(i, 1);
                     SWITCH()
+                    render()
                 }
             })
         }
@@ -46,21 +47,18 @@ function render() {
 }
 
 function SWITCH() {
-    let TemArr = OccPlayers.map(card => card.querySelector(".name").innerHTML)
-    console.log(TemArr);
-    let ItemsToMove = []
-    
+    let CardToCOm = document.querySelector(".occupiedPlayers").querySelectorAll(".occupied")
+    let TempArr = [];
+    CardToCOm.forEach(e => {
+        TempArr.push(e)
+    })
+    let TemArr2 = TempArr.map(card => card = card.querySelector(".name").innerHTML)
+
     for (let i = 0; i < OccPlayers.length; i++) {
         let name = OccPlayers[i].querySelector(".name").innerHTML
-        if (!TemArr.includes(name)) {
-            ItemsToMove.push(OccPlayers[i])
-            OccPlayers.splice(i,1)
+        if (!TemArr2.includes(name)) {
+            AvPlayers.push(OccPlayers[i])
+            OccPlayers.splice(i, 1)
         }
     }
-    if (ItemsToMove) {
-        ItemsToMove.forEach(e => {
-            AvPlayers.push(e)
-        })
-    }
-    render()
 }
