@@ -18,8 +18,6 @@ allPlayers.querySelectorAll(".card").forEach(e => {
     AvPlayers.push(e)
     AllP.push(e)
 })
-
-let i = 0
 function Add() {
     occupiedPlayers.querySelectorAll(".Empty").forEach(e => {
         e.onclick = () => {
@@ -49,16 +47,22 @@ function render() {
 function SWITCH() {
     let CardToCOm = document.querySelector(".occupiedPlayers").querySelectorAll(".occupied")
     let TempArr = [];
+    let ItemsToMove = [];
     CardToCOm.forEach(e => {
         TempArr.push(e)
     })
     let TemArr2 = TempArr.map(card => card = card.querySelector(".name").innerHTML)
 
-    for (let i = 0; i < OccPlayers.length; i++) {
-        let name = OccPlayers[i].querySelector(".name").innerHTML
+    OccPlayers.forEach(player => {
+        let name = player.querySelector(".name").innerHTML;
         if (!TemArr2.includes(name)) {
-            AvPlayers.push(OccPlayers[i])
-            OccPlayers.splice(i, 1)
+            ItemsToMove.push(player);
         }
-    }
+    });
+
+    ItemsToMove.forEach(e => {
+        AvPlayers.push(e);
+        let index = OccPlayers.findIndex(card => card === e);
+        OccPlayers.splice(index, 1);
+    });
 }
